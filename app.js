@@ -7,7 +7,7 @@ const Review = require('./models/review');
 
 const app = express();
 app.use(cors())
-app.use(express.json())
+app.use(express.json({limit: '50mb'}))
 app.listen(3000, () => console.log('GuitarStore-Backend running on http://localhost:3000/'));
 db.authenticate().then(() => {
     console.log('Connection has been established successfully.');
@@ -45,7 +45,6 @@ app.get('/guitars', (_, response) => {
 
 app.post('/guitars', (request, response) => {
     Guitar.create({
-        guitar_id: request.params.id,
         name: request.body.name,
         description: request.body.description,
         longDescription: request.body.longDescription,
